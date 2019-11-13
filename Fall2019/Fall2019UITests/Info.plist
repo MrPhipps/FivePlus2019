@@ -18,5 +18,11 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need your camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need your photos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need to save your changes.</string>
 </dict>
 </plist>
