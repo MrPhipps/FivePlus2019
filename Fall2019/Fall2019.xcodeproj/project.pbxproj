@@ -16,6 +16,7 @@
 		9A59F504237A1B5700DD3C64 /* Fall2019Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A59F503237A1B5700DD3C64 /* Fall2019Tests.swift */; };
 		9A59F50F237A1B5700DD3C64 /* Fall2019UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A59F50E237A1B5700DD3C64 /* Fall2019UITests.swift */; };
 		9A59F51D237C7E8A00DD3C64 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A59F51C237C7E8A00DD3C64 /* PhotoPickerView.swift */; };
+		9A59F520237CA04B00DD3C64 /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A59F51F237CA04B00DD3C64 /* CoreImageFilters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		9A59F50E237A1B5700DD3C64 /* Fall2019UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fall2019UITests.swift; sourceTree = "<group>"; };
 		9A59F510237A1B5700DD3C64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A59F51C237C7E8A00DD3C64 /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
+		9A59F51F237CA04B00DD3C64 /* CoreImageFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreImageFilters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				9A59F4FA237A1B5700DD3C64 /* Info.plist */,
 				9A59F4F4237A1B5700DD3C64 /* Preview Content */,
 				9A59F51C237C7E8A00DD3C64 /* PhotoPickerView.swift */,
+				9A59F51E237CA02A00DD3C64 /* FunctionalAPIs */,
 			);
 			path = Fall2019;
 			sourceTree = "<group>";
@@ -137,6 +140,14 @@
 				9A59F510237A1B5700DD3C64 /* Info.plist */,
 			);
 			path = Fall2019UITests;
+			sourceTree = "<group>";
+		};
+		9A59F51E237CA02A00DD3C64 /* FunctionalAPIs */ = {
+			isa = PBXGroup;
+			children = (
+				9A59F51F237CA04B00DD3C64 /* CoreImageFilters.swift */,
+			);
+			path = FunctionalAPIs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +284,7 @@
 				9A59F4ED237A1B5400DD3C64 /* AppDelegate.swift in Sources */,
 				9A59F4EF237A1B5400DD3C64 /* SceneDelegate.swift in Sources */,
 				9A59F4F1237A1B5400DD3C64 /* ContentView.swift in Sources */,
+				9A59F520237CA04B00DD3C64 /* CoreImageFilters.swift in Sources */,
 				9A59F51D237C7E8A00DD3C64 /* PhotoPickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
