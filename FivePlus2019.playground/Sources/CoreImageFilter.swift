@@ -2,11 +2,10 @@ import Foundation
 import CoreImage
 import UIKit
 
+public extension CIFilter {
 
-typealias Filter = (CIImage) -> (CIImage)
-typealias Parameters = Dictionary<String,AnyObject>
-
-extension CIFilter {
+    typealias Filter = (CIImage) -> (CIImage)
+    typealias Parameters = Dictionary<String,AnyObject>
 
     convenience init(name: String, parameters: Parameters) {
         self.init(name: name)!
@@ -19,36 +18,46 @@ extension CIFilter {
     var outputImage: CIImage { return self.value(forKey: kCIOutputImageKey) as! CIImage }
 }
 
-func blur(radius: Double) -> Filter {
+public func boxBlur(radius:Float) -> CIFilter.Filter {
     return { image in
-        let parameters : Parameters = [kCIInputRadiusKey: radius as AnyObject, kCIInputImageKey: image]
-        let filter = CIFilter(name:"CIGaussianBlur", parameters:parameters)
-        return filter.outputImage
+        let filter = CIFilter(name: "CIBoxBlur")
+        filter?.setValue(image, forKey: kCIInputImageKey)
+        filter?.setValue(radius, forKey: kCIInputRadiusKey)
+        return filter!.outputImage.cropped(to: image.extent)
     }
 }
 
-func colorGenerator(color: UIColor) -> Filter {
-    return { _ in
-        let filter = CIFilter(name:"CIConstantColorGenerator", parameters: [kCIInputColorKey: CIColor(color: color)])
-        return filter.outputImage
+public func blur(radius: Double) -> CIFilter.Filter {
+    return { image in
+        let filter = CIFilter(name:"CIGaussianBlur")
+        filter?.setValue(image, forKey: kCIInputImageKey)
+        filter?.setValue(radius, forKey: kCIInputRadiusKey)
+        return filter!.outputImage.cropped(to: image.extent)
     }
 }
 
-func compositeSourceOver(overlay: CIImage) -> Filter {
+public func colorGenerator(color: UIColor) -> CIFilter.Filter  {
     return { image in
-        let parameters : Parameters = [
-            kCIInputBackgroundImageKey: image,
-            kCIInputImageKey: overlay
-        ]
-        let filter = CIFilter(name:"CISourceOverCompositing", parameters: parameters)
-        return filter.outputImage.cropped(to: image.extent)
+        let filter = CIFilter(name:"CIConstantColorGenerator")
+        filter?.setValue(image, forKey: kCIInputImageKey)
+        filter?.setValue(color, forKey: kCIInputColorKey)
+        return filter!.outputImage.cropped(to: image.extent)
     }
 }
 
-func colorOverlay(color: UIColor) -> Filter {
+public func compositeSourceOver(overlay: CIImage) -> CIFilter.Filter  {
     return { image in
-        let overlay = colorGenerator(color: color)(image)
-        return compositeSourceOver(overlay: overlay)(image)
+        let filter = CIFilter(name:"CISourceOverCompositing")
+        filter?.setValue(image, forKey: kCIInputBackgroundImageKey)
+        filter?.setValue(overlay, forKey: kCIInputImageKey)
+        return filter!.outputImage.cropped(to: image.extent)
+    }
+}
+
+public func colorOverlay(color: UIColor) -> CIFilter.Filter  {
+    return { image in
+        let overlay = image |> colorGenerator(color: color)
+        return image |> compositeSourceOver(overlay: overlay)
     }
 }
 
@@ -56,12 +65,14 @@ precedencegroup ForwardApplication {
   associativity: left
 }
 
-infix operator >|> :ForwardApplication
+infix operator |>: ForwardApplication
 
-func >|> ( filter1: @escaping Filter, filter2: @escaping Filter) -> Filter {
-    return {
-        img in filter2(filter1(img))
-    }
+func |> <A, B>(a: A, f: (A) -> B) -> B {
+  return f(a)
 }
+
+
+
+
 
 
